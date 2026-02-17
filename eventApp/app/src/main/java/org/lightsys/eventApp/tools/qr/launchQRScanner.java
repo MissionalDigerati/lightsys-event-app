@@ -10,6 +10,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
 import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
@@ -43,6 +44,10 @@ public class launchQRScanner extends AppCompatActivity implements BarcodeRetriev
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Enable edge-to-edge display.
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
         setContentView(R.layout.qrscan_layout);
 
         initiatePopupWindow();

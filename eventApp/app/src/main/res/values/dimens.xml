@@ -28,5 +28,6 @@
     <!-- Large Margins -->
     <dimen name="more_space_border_dimen_lg">22dp</dimen>
     <dimen name="more_space_border_dimen_indent_lg">30dp</dimen>
+    <dimen name="_72pt">72pt</dimen>
 
 </resources>

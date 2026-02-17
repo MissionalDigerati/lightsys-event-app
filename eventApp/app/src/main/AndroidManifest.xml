@@ -51,6 +51,7 @@
             android:label="@string/settings_title"
             android:configChanges="orientation|screenSize"
             android:parentActivityName = ".views.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -63,6 +64,7 @@
             android:configChanges="orientation|screenSize"
             android:parentActivityName=".views.SettingsViews.SettingsActivity"
             >
+            <!--android:windowOptOutEdgeToEdgeEnforcement="true"-->
         </activity>
 
         <activity
@@ -81,7 +83,6 @@
             <!--for QR code-->
             <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES"
                        android:value="barcode"/>
-
 
         </activity>
 

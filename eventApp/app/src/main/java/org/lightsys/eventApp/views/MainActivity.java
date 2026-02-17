@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.WindowCompat;
 import androidx.lifecycle.Observer;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -39,6 +40,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.widget.RelativeLayout;
 import android.widget.FrameLayout;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import androidmads.library.qrgenearator.QRGContents;
@@ -117,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements ScannedEventsAdap
     private LocalDB db;
     private AlertDialog alert;
     private Toolbar toolbar;
+    private AppBarLayout app_bar;
     private View previousNavView;
     private ListView navigationList;
     private RecyclerView scannedEventsView;
@@ -143,6 +146,8 @@ public class MainActivity extends AppCompatActivity implements ScannedEventsAdap
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
         setContentView(R.layout.activity_main);
         db = new LocalDB(this);
         context = this;
@@ -166,9 +171,10 @@ public class MainActivity extends AppCompatActivity implements ScannedEventsAdap
         /* Start auto update */
         startUpdater(false);
 
-        /*set up toolbar*/
+        /* Set up toolbar and app bar */
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        app_bar = (AppBarLayout) findViewById(R.id.app_bar);
 
         /*set up scanned events recycler view*/
         String scan_qr = getResources().getString(R.string.scan_new_qr);
@@ -578,6 +584,8 @@ public class MainActivity extends AppCompatActivity implements ScannedEventsAdap
         QRGEncoder qrgEncoder = new QRGEncoder(scanned_url, null, QRGContents.Type.TEXT, 512);
 
         // Getting QR-Code as BitmapDrawable
+        qrgEncoder.setColorBlack(Color.WHITE);
+        qrgEncoder.setColorWhite(Color.BLACK);
         Bitmap bitmap = qrgEncoder.getBitmap();
         Drawable d = new BitmapDrawable(getResources(), bitmap);
 
@@ -837,6 +845,7 @@ public class MainActivity extends AppCompatActivity implements ScannedEventsAdap
 
         //Title bar Color
         toolbar.setBackgroundColor(color);
+        app_bar.setBackgroundColor(color);
 
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().setStatusBarColor(Color.parseColor(db.getThemeColor("themeDark")));
